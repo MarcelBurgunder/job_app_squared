@@ -1,6 +1,7 @@
 # Greenhouse Application Submission App
 
-This is a simple application built with Next.js and TypeScript to submit job applications via Greenhouse's API. The app allows users to submit their resumes and application data for a job listed in Greenhouse.
+This is a simple application built with Next.js and TypeScript to submit job applications via Greenhouse's API. The app allows users to submit their resumes and application data for a job listed in Greenhouse. In the future we will want to create a seperate application for 
+recruiters to view applications and make decisions on them - Greenhouse provides API to do this.
 
 ## Getting Started
 
@@ -15,7 +16,6 @@ Ensure you have the following installed:
 
 1. Clone the repository:
 
-   bash
    git clone https://github.com/your-username/greenhouse-app.git
    cd greenhouse-app
 
@@ -29,6 +29,7 @@ Create a .env.local file in the root of the project, and add the following envir
 
     NEXT_PUBLIC_GREENHOUSE_API_KEY=your-hardcoded-api-key
     NEXT_PUBLIC_GREENHOUSE_JOB_ID=your-hardcoded-job-id
+    NEXT_PUBLIC_GREENHOUSE_JOB_SOURCE_ID=your-hardcoded-job-source-id
     NEXT_PUBLIC_GREENHOUSE_USER_ID=your-hardcoded-user-id
 
 These values are used for interacting with the Greenhouse API and submitting applications.
@@ -77,7 +78,6 @@ Validation and Error Handling Components: For showing validation errors and hand
 This library will be designed with scalability in mind, allowing for easy addition of new components as the project grows.
 
 3. Additional Pages and Features
-Application Success Page: A dedicated page to show users a success message after submitting their application.
 Error Pages: Custom error pages to handle API failures, missing information, etc.
 Job Listings Page: A page that fetches and displays available jobs from Greenhouse (if the API supports it).
 
@@ -94,6 +94,10 @@ We are currently **hardcoding colors** inside CSS files. However, future version
 - A **theme configuration** for colors, fonts, and spacing.
 - A **centralized token system** for consistency across components.
 - Improved accessibility and dark mode support.
+
+6. Validation
+More comprehensive validation logic around all our functional components, currently what we have is VERY light weight.
+
 
 ### License
 
