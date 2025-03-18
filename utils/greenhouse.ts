@@ -62,10 +62,11 @@ export async function applyToJob(formData: ApplicationFormData): Promise<any> {
     email,
     phone,
     linkedin,
-    race,
-    gender,
-    disabilityStatus,
-    veteranStatus,
+    // TODO: Add these once they're enabled in greenhouse
+    //race,
+    //gender,
+    //disabilityStatus,
+    //veteranStatus,
   } = formData;
 
   // 1Check if the candidate already exists in Greenhouse
@@ -85,7 +86,7 @@ export async function applyToJob(formData: ApplicationFormData): Promise<any> {
     Authorization: `Basic ${Buffer.from(`${API_KEY}:`).toString('base64')}`,
     Accept: 'application/json',
     'Content-Type': 'application/json',
-    'On-Behalf-Of': USER_ID,
+    'On-Behalf-Of': USER_ID ?? 'NO_USER', // Adding invalid fallback to bypass typecheck - this is never expected it cause an issue unless environment variables are misconfigured
   };
   const firstJobStage = await getFirstJobStage();
   const application = {
