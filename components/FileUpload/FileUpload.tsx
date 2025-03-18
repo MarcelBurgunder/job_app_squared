@@ -9,6 +9,7 @@ interface FileUploadProps {
   width?: 'sm' | 'lg';
 }
 
+// TODO: Enable file upload
 const FileUpload: React.FC<FileUploadProps> = ({ label, onChange, width = 'lg' }) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files ? e.target.files[0] : null;
@@ -23,7 +24,10 @@ const FileUpload: React.FC<FileUploadProps> = ({ label, onChange, width = 'lg' }
       gap={1}
     >
       <TextBox type="label">{label}</TextBox>
-      <input type="file" className={styles.input} onChange={handleChange} />
+      {/* TODO: Enable file upload<input type="file" className={styles.input} onChange={handleChange} />*/}
+      <TextBox type="error">
+        File upload is currently unavailable - a recruiter will reach out for any supplements
+      </TextBox>
     </Box>
   );
 };

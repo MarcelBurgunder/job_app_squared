@@ -1,8 +1,8 @@
 // TODO: Wrap in a useMutation
-// TODO: There is no typesafety on this util ensuring FormData includes all the right info
-// We assume that the caller is using our strongly typed ApplicationFormData, but said type
-// safety needs to be introduced here on the backend as well eventually.
-export const submitApplication = async (formData: FormData) => {
+import { ApplicationFormData } from '../types';
+
+export const submitApplication = async (formData: ApplicationFormData) => {
+  console.log(formData);
   try {
     const response = await fetch('/api/job', {
       method: 'POST',

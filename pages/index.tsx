@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Box, Container } from '@mui/material';
 import { submitApplication } from '../api-queries/submit-application';
 import BasicInfo from '../components/ApplicationSections/BasicInfo';
@@ -7,6 +7,7 @@ import DisabilityStatus from '../components/ApplicationSections/DisabilityStatus
 import JobDescription from '../components/ApplicationSections/JobDescription';
 import Button from '../components/Button/Button';
 import { ApplicationFormData } from '../types/index';
+import TextBox from '../components/TextBox/TextBox';
 
 const Home = () => {
   const [formData, setFormData] = useState<ApplicationFormData>({
@@ -49,20 +50,7 @@ const Home = () => {
     setSuccess(false);
 
     try {
-      const formDataToSubmit = new FormData();
-      formDataToSubmit.append('first_name', formData.firstName);
-      formDataToSubmit.append('last_name', formData.lastName);
-      formDataToSubmit.append('email', formData.email);
-      formDataToSubmit.append('phone', formData.phone);
-      formDataToSubmit.append('linkedin', formData.linkedin);
-      formDataToSubmit.append('gender', formData.gender);
-      formDataToSubmit.append('veteran_status', formData.veteranStatus);
-      formDataToSubmit.append('race', formData.race);
-      formDataToSubmit.append('disability_status', formData.disabilityStatus);
-      if (formData.resume) formDataToSubmit.append('resume', formData.resume);
-      if (formData.coverLetter) formDataToSubmit.append('coverLetter', formData.coverLetter);
-
-      const response = await submitApplication(formDataToSubmit);
+      const response = await submitApplication(formData);
       if (response.success) {
         setSuccess(true);
       } else {
@@ -103,8 +91,8 @@ const Home = () => {
             {loading ? 'Submitting...' : 'Submit Application'}
           </Button>
 
-          {error && <p style={{ color: 'red' }}>{error}</p>}
-          {success && <p style={{ color: 'green' }}>Application submitted successfully!</p>}
+          {error && <TextBox type="error">{error}</TextBox>}
+          {success && <TextBox type="positive">Application submitted successfully!</TextBox>}
         </Box>
       </Box>
     </Container>

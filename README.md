@@ -53,6 +53,10 @@ To start the production server:
 
     npm run start
 
+### IMPORTANT RELEASE NOTE
+
+In the current version of this application we do not support attaching a resume or cover letter - this will be enabled in the immediate next release when file upload is fixed.
+
 ### Future Iterations
 
 1. Greenhouse API as a Reusable Package

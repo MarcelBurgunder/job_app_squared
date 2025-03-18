@@ -14,6 +14,7 @@ interface OptionListProps {
   onChange: (newValue: string) => void; // Updated: Directly sets value
 }
 
+// TODO: Add cleaner styling such that width is more consistent
 const OptionList: React.FC<OptionListProps> = ({ label, options, value, onChange }) => {
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     onChange(e.target.value); // Directly updates state in the parent
