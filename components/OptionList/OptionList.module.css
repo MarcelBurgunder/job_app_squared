@@ -1,14 +1,13 @@
 .option-list {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    outline: none;
-    transition: border 0.3s ease;
-    background-color: white;
-  }
-  
-  .option-list:focus {
-    border-color: #0070f3;
-  }
-  
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  transition: border 0.3s ease;
+  background-color: white;
+}
+
+.option-list:focus {
+  border-color: #0070f3;
+}

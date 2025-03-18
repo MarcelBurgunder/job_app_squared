@@ -1,4 +1,4 @@
-import { Box } from '@mui/material'
+import { Box } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { fetchJobDescription } from '../../api-queries/fetch-job-description';
 import TextBox from '../TextBox/TextBox';

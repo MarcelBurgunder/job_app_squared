@@ -1,6 +1,5 @@
 node_modules
 .next
-out
-dist
-public
 package-lock.json
+README.md
+LICENSE

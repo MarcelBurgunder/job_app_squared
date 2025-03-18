@@ -16,7 +16,12 @@ const FileUpload: React.FC<FileUploadProps> = ({ label, onChange, width = 'lg' }
   };
 
   return (
-    <Box className={width === 'sm' ? styles.sm : styles.lg} display="flex" flexDirection="column" gap={1}>
+    <Box
+      className={width === 'sm' ? styles.sm : styles.lg}
+      display="flex"
+      flexDirection="column"
+      gap={1}
+    >
       <TextBox type="label">{label}</TextBox>
       <input type="file" className={styles.input} onChange={handleChange} />
     </Box>

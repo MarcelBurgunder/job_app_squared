@@ -7,11 +7,7 @@ interface TextBoxProps {
 }
 
 const TextBox: React.FC<TextBoxProps> = ({ type, children }) => {
-  return (
-    <div className={styles[type]}>
-      {children}
-    </div>
-  );
+  return <div className={styles[type]}>{children}</div>;
 };
 
 export default TextBox;

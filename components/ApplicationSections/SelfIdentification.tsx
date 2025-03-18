@@ -35,7 +35,10 @@ const SelfIdentification: React.FC<SelfIdentificationProps> = ({ formData, setFo
         options={[
           { value: '', label: 'Select...' },
           { value: 'not_protected', label: 'I am not a protected veteran' },
-          { value: 'protected', label: 'I identify as one or more classifications of a protected veteran' },
+          {
+            value: 'protected',
+            label: 'I identify as one or more classifications of a protected veteran',
+          },
           { value: 'prefer_not_to_say', label: "I don't wish to answer" },
         ]}
       />

@@ -1,48 +1,48 @@
 .container {
-    width: 100%;
-    padding: 0 10px; /* Ensures spacing inside the container */
-  }
-  
-  .label {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 5px;
-    color: #333;
-  }
-  
-  .input {
-    width: 100%; /* Ensures input fits inside parent */
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    outline: none;
-    transition: border 0.3s ease;
-    box-sizing: border-box; /* Ensures padding doesn't increase width */
-  }
-  
-  .input:focus {
-    border-color: #0070f3;
-  }
+  width: 100%;
+  padding: 0 10px; /* Ensures spacing inside the container */
+}
 
-  .sm {
-    max-width: 300px; /* Small size */
-  }
-  
-  .lg {
-    max-width: 100%; /* Large size (full width) */
-  }
-  
-  .required {
-    color: red;
-    margin-left: 4px;
-  }
-  
-  .error {
-    border-color: red !important;
-  }
-  
-  .errorText {
-    font-size: 12px;
-    color: red;
-    margin-top: 4px;
-  }
+.label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.input {
+  width: 100%; /* Ensures input fits inside parent */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  transition: border 0.3s ease;
+  box-sizing: border-box; /* Ensures padding doesn't increase width */
+}
+
+.input:focus {
+  border-color: #0070f3;
+}
+
+.sm {
+  max-width: 300px; /* Small size */
+}
+
+.lg {
+  max-width: 100%; /* Large size (full width) */
+}
+
+.required {
+  color: red;
+  margin-left: 4px;
+}
+
+.error {
+  border-color: red !important;
+}
+
+.errorText {
+  font-size: 12px;
+  color: red;
+  margin-top: 4px;
+}

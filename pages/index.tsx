@@ -77,23 +77,35 @@ const Home = () => {
 
   return (
     <Container maxWidth="md">
-        <Box display="flex" flexDirection="column" alignItems="center" gap={4} py={4}>
-      <JobDescription />
-      <Box display="flex" flexDirection="column" gap={4} p={4} boxShadow={3} borderRadius={2} bgcolor="white">
-        {/* Basic Info Section (Now with file uploads) */}
-        <BasicInfo formData={formData} setFormData={handleSetFormData} handleFileChange={handleFileChange} />
+      <Box display="flex" flexDirection="column" alignItems="center" gap={4} py={4}>
+        <JobDescription />
+        <Box
+          display="flex"
+          flexDirection="column"
+          gap={4}
+          p={4}
+          boxShadow={3}
+          borderRadius={2}
+          bgcolor="white"
+        >
+          {/* Basic Info Section (Now with file uploads) */}
+          <BasicInfo
+            formData={formData}
+            setFormData={handleSetFormData}
+            handleFileChange={handleFileChange}
+          />
 
-        {/* Self-Identification & Disability Sections */}
-        <SelfIdentification formData={formData} setFormData={handleSetFormData} />
-        <DisabilityStatus formData={formData} setFormData={handleSetFormData} />
+          {/* Self-Identification & Disability Sections */}
+          <SelfIdentification formData={formData} setFormData={handleSetFormData} />
+          <DisabilityStatus formData={formData} setFormData={handleSetFormData} />
 
-        <Button type="submit" disabled={isSubmitDisabled || loading} onClick={handleSubmit}>
-          {loading ? 'Submitting...' : 'Submit Application'}
-        </Button>
+          <Button type="submit" disabled={isSubmitDisabled || loading} onClick={handleSubmit}>
+            {loading ? 'Submitting...' : 'Submit Application'}
+          </Button>
 
-        {error && <p style={{ color: 'red' }}>{error}</p>}
-        {success && <p style={{ color: 'green' }}>Application submitted successfully!</p>}
-      </Box>
+          {error && <p style={{ color: 'red' }}>{error}</p>}
+          {success && <p style={{ color: 'green' }}>Application submitted successfully!</p>}
+        </Box>
       </Box>
     </Container>
   );

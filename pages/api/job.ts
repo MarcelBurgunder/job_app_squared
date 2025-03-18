@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { ApplicationFormData, isAppError } from '../../types'
+import { ApplicationFormData, isAppError } from '../../types';
 import { applyToJob, getJobDescription } from '../../utils/greenhouseApi';
 
 const API_KEY = process.env.NEXT_PUBLIC_GREENHOUSE_API_KEY;
@@ -13,12 +13,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   if (req.method === 'GET') {
     try {
-        const description = getJobDescription()
-      
+      const description = getJobDescription();
+
       if (isAppError(description)) {
         return res.status(description.errorStatus).json({ error: description.errorMessage });
       }
-      
+
       return res.status(200).json(description);
     } catch (error) {
       console.error('Error fetching job description:', error);
@@ -30,12 +30,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     try {
       // TODO: Introduce ZOD parse to properly parse request bodies and parameters
       const formData = req.body as ApplicationFormData;
-      const responseData = await applyToJob(formData)
-      
+      const responseData = await applyToJob(formData);
+
       if (isAppError(responseData)) {
         return res.status(responseData.errorStatus).json({ error: responseData.errorMessage });
       }
-      
+
       return res.status(200).json(responseData);
     } catch (error) {
       console.error('Error submitting application:', error);

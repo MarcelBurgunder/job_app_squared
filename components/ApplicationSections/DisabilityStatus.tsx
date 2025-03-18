@@ -17,9 +17,8 @@ const DisabilityStatus: React.FC<DisabilityStatusProps> = ({ formData, setFormDa
 
       <TextBox type="caption">
         How do you know if you have a disability?
-        <br />
-        A disability is a condition that substantially limits major life activities such as walking, seeing, hearing, 
-        speaking, breathing, learning, and working.
+        <br />A disability is a condition that substantially limits major life activities such as
+        walking, seeing, hearing, speaking, breathing, learning, and working.
       </TextBox>
 
       <OptionList
