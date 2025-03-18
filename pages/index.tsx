@@ -8,8 +8,10 @@ import JobDescription from '../components/ApplicationSections/JobDescription';
 import Button from '../components/Button/Button';
 import { ApplicationFormData } from '../types/index';
 import TextBox from '../components/TextBox/TextBox';
+import { useRouter } from 'next/router';
 
 const Home = () => {
+  const router = useRouter();
   const [formData, setFormData] = useState<ApplicationFormData>({
     firstName: '',
     lastName: '',
@@ -52,7 +54,7 @@ const Home = () => {
     try {
       const response = await submitApplication(formData);
       if (response.success) {
-        setSuccess(true);
+        router.push('/confirmation'); // Redirect to confirmation page
       } else {
         setError('Failed to submit the application.');
       }
@@ -84,6 +86,7 @@ const Home = () => {
           />
 
           {/* Self-Identification & Disability Sections */}
+          {/* TODO: The greenhouse account doesn't currently accept these, add them as custom fields in greenhouse to enable reading them */}
           <SelfIdentification formData={formData} setFormData={handleSetFormData} />
           <DisabilityStatus formData={formData} setFormData={handleSetFormData} />
 
@@ -92,7 +95,6 @@ const Home = () => {
           </Button>
 
           {error && <TextBox type="error">{error}</TextBox>}
-          {success && <TextBox type="positive">Application submitted successfully!</TextBox>}
         </Box>
       </Box>
     </Container>

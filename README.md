@@ -57,6 +57,10 @@ To start the production server:
 
 In the current version of this application we do not support attaching a resume or cover letter - this will be enabled in the immediate next release when file upload is fixed.
 
+The application also currently exposes custom fields like veteran status, race, and gender,
+but the Greenhouse application currently does not support them, so they won't be read.
+An immediate followup will involve enabling these in Greenhouse such that they can be read.
+
 ### Future Iterations
 
 1. Greenhouse API as a Reusable Package

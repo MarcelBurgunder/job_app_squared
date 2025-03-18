@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { ApplicationFormData, isAppError } from '../../types';
-import { applyToJob, getJobDescription } from '../../utils/greenhouseApi';
+import { applyToJob, getJobDescription } from '../../utils/greenhouse';
 
 // TODO: Allow for user and job ids to be dynamically pulled / set in app
 const API_KEY = process.env.NEXT_PUBLIC_GREENHOUSE_API_KEY;
@@ -38,7 +38,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         return res.status(responseData.errorStatus).json({ error: responseData.errorMessage });
       }
 
-      return res.status(200).json(responseData);
+      return res.status(200).json({ ...responseData, success: true });
     } catch (error) {
       console.error('Error submitting application:', error);
       return res.status(500).json({ error: 'Server error' });

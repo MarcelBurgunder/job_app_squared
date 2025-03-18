@@ -2,7 +2,6 @@
 import { ApplicationFormData } from '../types';
 
 export const submitApplication = async (formData: ApplicationFormData) => {
-  console.log(formData);
   try {
     const response = await fetch('/api/job', {
       method: 'POST',
