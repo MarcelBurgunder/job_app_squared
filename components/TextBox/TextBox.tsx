@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './TextBox.module.css';
 
 interface TextBoxProps {
-  type: 'title' | 'label' | 'caption';
+  type: 'title' | 'label' | 'caption' | 'header';
   children: React.ReactNode;
 }
 

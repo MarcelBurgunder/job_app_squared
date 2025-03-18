@@ -1,25 +1,26 @@
-import { Box } from '@mui/material'
+import { Box } from '@mui/material';
 import TextInput from '../TextInput/TextInput';
 import FileUpload from '../FileUpload/FileUpload';
+import { ApplicationFormData } from '../../types/index';
 
-interface Props {
-  formData: any;
-  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleFileChange: (name: string, file: File | null) => void;
+interface BasicInfoProps {
+  formData: ApplicationFormData;
+  setFormData: (newFormData: Partial<ApplicationFormData>) => void;
+  handleFileChange: (field: keyof ApplicationFormData, file: File | null) => void;
 }
 
-const Basic: React.FC<Props> = ({ formData, handleChange, handleFileChange }) => {
+const BasicInfo: React.FC<BasicInfoProps> = ({ formData, setFormData, handleFileChange }) => {
   return (
-    <Box display='flex' flexDirection='column' gap={2}>
-      <TextInput label="First Name" name="firstName" value={formData.firstName} onChange={handleChange} required />
-      <TextInput label="Last Name" name="lastName" value={formData.lastName} onChange={handleChange} required />
-      <TextInput label="Phone Number" type="tel" name="phone" value={formData.phone} onChange={handleChange} required />
-      <TextInput label="Email" type="email" name="email" value={formData.email} onChange={handleChange} required />
-      <TextInput label="LinkedIn Profile" type="url" name="linkedin" value={formData.linkedin} onChange={handleChange} required />
-      <FileUpload label="Resume (PDF)" onChange={(file) => handleFileChange('resume', file)} />
-      <FileUpload label="Cover Letter (PDF)" onChange={(file) => handleFileChange('coverLetter', file)} />
+    <Box display="flex" flexDirection="column" gap={2}>
+      <TextInput label="First Name" value={formData.firstName} onChange={(e) => setFormData({ firstName: e.target.value })} required width="sm"/>
+      <TextInput label="Last Name" value={formData.lastName} onChange={(e) => setFormData({ lastName: e.target.value })} required width="sm"/>
+      <TextInput label="Phone Number" type="tel" value={formData.phone} onChange={(e) => setFormData({ phone: e.target.value })} required width="sm"/>
+      <TextInput label="Email" type="email" value={formData.email} onChange={(e) => setFormData({ email: e.target.value })} required width="sm"/>
+      <TextInput label="LinkedIn Profile" type="url" value={formData.linkedin} onChange={(e) => setFormData({ linkedin: e.target.value })} required width="sm"/>
+      <FileUpload label="Resume (PDF)" onChange={(file) => handleFileChange('resume', file)} width="sm"/>
+      <FileUpload label="Cover Letter (PDF)" onChange={(file) => handleFileChange('coverLetter', file)} width="sm"/>
     </Box>
   );
 };
 
-export default Basic;
+export default BasicInfo;

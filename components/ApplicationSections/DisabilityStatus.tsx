@@ -1,26 +1,38 @@
-import { Box } from '@mui/material'
+import React from 'react';
+import { Box } from '@mui/material';
+import OptionList from '../OptionList/OptionList';
 import TextBox from '../TextBox/TextBox';
+import { ApplicationFormData } from '../../types/index';
 
-interface Props {
-  formData: any;
-  handleChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+interface DisabilityStatusProps {
+  formData: ApplicationFormData;
+  setFormData: (newFormData: Partial<ApplicationFormData>) => void;
 }
 
-const DisabilityStatus: React.FC<Props> = ({ formData, handleChange }) => {
+// TODO: Extend description of this field and make it more comprehensive
+const DisabilityStatus: React.FC<DisabilityStatusProps> = ({ formData, setFormData }) => {
   return (
-    <Box display="flex" flexDirection="column" gap={1} width="100%">
-      <TextBox type="label">Disability Status</TextBox>
+    <Box display="flex" flexDirection="column" gap={2}>
+      <TextBox type="title">Disability Status</TextBox>
+
       <TextBox type="caption">
-        How do you know if you have a disability?  
-        A disability is a condition that substantially limits major life activities such as walking, seeing, hearing, or learning.
+        How do you know if you have a disability?
+        <br />
+        A disability is a condition that substantially limits major life activities such as walking, seeing, hearing, 
+        speaking, breathing, learning, and working.
       </TextBox>
-      <Box>
-      <select name="disabilityStatus" value={formData.disabilityStatus} onChange={handleChange} className="w-full p-2 border rounded-md">
-        <option value="">Select...</option>
-        <option value="yes">Yes, I have a disability, or have had one in the past</option>
-        <option value="no">No, I don't have a disability and have not had one in the past</option>
-        <option value="prefer_not_to_say">I don't wish to answer</option>
-      </select></Box>
+
+      <OptionList
+        label="Do you have a disability?"
+        value={formData.disabilityStatus}
+        onChange={(newValue) => setFormData({ disabilityStatus: newValue })}
+        options={[
+          { value: '', label: 'Select...' },
+          { value: 'yes', label: 'Yes, I have a disability' },
+          { value: 'no', label: 'No, I do not have a disability' },
+          { value: 'prefer_not_to_say', label: 'Prefer not to say' },
+        ]}
+      />
     </Box>
   );
 };

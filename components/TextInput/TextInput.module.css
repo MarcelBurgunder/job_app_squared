@@ -23,4 +23,12 @@
   .input:focus {
     border-color: #0070f3;
   }
+
+  .sm {
+    max-width: 300px; /* Small size */
+  }
+  
+  .lg {
+    max-width: 100%; /* Large size (full width) */
+  }
   

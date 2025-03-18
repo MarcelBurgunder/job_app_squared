@@ -1,19 +1,19 @@
 import { useState } from 'react';
 import { Box, Container } from '@mui/material';
 import { submitApplication } from '../utils/greenhouseApi';
-import TextBox from '../components/TextBox/TextBox';
-import Button from '../components/Button/Button';
-import JobDescription from '../components/ApplicationSections/JobDescription';
 import BasicInfo from '../components/ApplicationSections/BasicInfo';
 import SelfIdentification from '../components/ApplicationSections/SelfIdentification';
 import DisabilityStatus from '../components/ApplicationSections/DisabilityStatus';
+import JobDescription from '../components/ApplicationSections/JobDescription';
+import Button from '../components/Button/Button';
+import { ApplicationFormData } from '../types/index';
 
 const Home = () => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<ApplicationFormData>({
     firstName: '',
     lastName: '',
-    phone: '',
     email: '',
+    phone: '',
     linkedin: '',
     resume: null,
     coverLetter: null,
@@ -27,13 +27,12 @@ const Home = () => {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+  const handleSetFormData = (update: Partial<ApplicationFormData>) => {
+    setFormData((prev) => ({ ...prev, ...update }));
   };
 
-  const handleFileChange = (name: string, file: File | null) => {
-    setFormData((prev) => ({ ...prev, [name]: file }));
+  const handleFileChange = (field: keyof ApplicationFormData, file: File | null) => {
+    setFormData((prev) => ({ ...prev, [field]: file }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -44,9 +43,17 @@ const Home = () => {
 
     try {
       const formDataToSubmit = new FormData();
-      Object.entries(formData).forEach(([key, value]) => {
-        if (value) formDataToSubmit.append(key, value as string | Blob);
-      });
+      formDataToSubmit.append('first_name', formData.firstName);
+      formDataToSubmit.append('last_name', formData.lastName);
+      formDataToSubmit.append('email', formData.email);
+      formDataToSubmit.append('phone', formData.phone);
+      formDataToSubmit.append('linkedin', formData.linkedin);
+      formDataToSubmit.append('gender', formData.gender);
+      formDataToSubmit.append('veteran_status', formData.veteranStatus);
+      formDataToSubmit.append('race', formData.race);
+      formDataToSubmit.append('disability_status', formData.disabilityStatus);
+      if (formData.resume) formDataToSubmit.append('resume', formData.resume);
+      if (formData.coverLetter) formDataToSubmit.append('coverLetter', formData.coverLetter);
 
       const response = await submitApplication(formDataToSubmit);
       if (response.success) {
@@ -63,20 +70,23 @@ const Home = () => {
 
   return (
     <Container maxWidth="md">
-      <Box display="flex" flexDirection="column" alignItems="center" gap={4} py={4}>
-        <JobDescription />
-          <form onSubmit={handleSubmit}>
-          <Box display="flex" flexDirection="column" gap={6} width="100%" p={2} boxShadow={2} borderRadius={2}>
-            <BasicInfo formData={formData} handleChange={handleChange} handleFileChange={handleFileChange} />
-            <SelfIdentification formData={formData} handleChange={handleChange} />
-            <DisabilityStatus formData={formData} handleChange={handleChange} />
-            <Box display="flex" justifyContent="center" mt={3}>
-              <Button type="submit" disabled={loading}>{loading ? 'Submitting...' : 'Submit Application'}</Button>
-            </Box>
-            {error && <TextBox type="caption">{error}</TextBox>}
-            {success && <TextBox type="caption">Application submitted successfully!</TextBox>}
-            </Box>
-          </form>
+        <Box display="flex" flexDirection="column" alignItems="center" gap={4} py={4}>
+      <JobDescription />
+      <Box display="flex" flexDirection="column" gap={4} p={4} boxShadow={3} borderRadius={2} bgcolor="white">
+        {/* Basic Info Section (Now with file uploads) */}
+        <BasicInfo formData={formData} setFormData={handleSetFormData} handleFileChange={handleFileChange} />
+
+        {/* Self-Identification & Disability Sections */}
+        <SelfIdentification formData={formData} setFormData={handleSetFormData} />
+        <DisabilityStatus formData={formData} setFormData={handleSetFormData} />
+
+        <Button type="submit" disabled={loading} onClick={handleSubmit}>
+          {loading ? 'Submitting...' : 'Submit Application'}
+        </Button>
+
+        {error && <p style={{ color: 'red' }}>{error}</p>}
+        {success && <p style={{ color: 'green' }}>Application submitted successfully!</p>}
+      </Box>
       </Box>
     </Container>
   );

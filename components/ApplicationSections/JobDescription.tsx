@@ -1,3 +1,4 @@
+import { Box } from '@mui/material'
 import { useEffect, useState } from 'react';
 import { fetchJobDescription } from '../../utils/greenhouseApi';
 import TextBox from '../TextBox/TextBox';
@@ -10,10 +11,10 @@ const JobDescription = () => {
   }, []);
 
   return (
-    <div className="mb-6 p-4 border rounded-md shadow-sm bg-gray-100">
-      <TextBox type="title">Job Description</TextBox>
+    <Box>
+      <TextBox type="header">Job Description</TextBox>
       <TextBox type="caption">{description}</TextBox>
-    </div>
+    </Box>
   );
 };
 

@@ -1,12 +1,17 @@
-export interface FormData {
+export interface ApplicationFormData {
     firstName: string;
     lastName: string;
     email: string;
+    phone: string;
     linkedin: string;
-    disabilityStatus: string;
-    race: string;
     resume: File | null;
+    coverLetter: File | null;
+    gender: string;
+    veteranStatus: string;
+    race: string;
+    disabilityStatus: string;
   }
+  
   
   export interface ApiResponse {
     success: boolean;

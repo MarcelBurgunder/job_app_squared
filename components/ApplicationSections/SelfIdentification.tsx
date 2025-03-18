@@ -1,53 +1,62 @@
+import React from 'react';
 import { Box } from '@mui/material';
+import OptionList from '../OptionList/OptionList';
 import TextBox from '../TextBox/TextBox';
+import { ApplicationFormData } from '../../types/index';
 
-interface Props {
-  formData: any;
-  handleChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+interface SelfIdentificationProps {
+  formData: ApplicationFormData;
+  setFormData: (newFormData: Partial<ApplicationFormData>) => void; // Updated: Setter function
 }
 
-// TODO: Move all options to a shared constant files to be managed seperately and not inlined.
-const SelfIdentification: React.FC<Props> = ({ formData, handleChange }) => {
+// TODO: Extend description of each field to make it comprehensive
+const SelfIdentification: React.FC<SelfIdentificationProps> = ({ formData, setFormData }) => {
   return (
-        <Box display="flex" flexDirection="column" gap={1} width="100%">
-      <TextBox type="label">Self-Identification</TextBox>
-      
-      <Box display='flex' gap={1}>
-      <TextBox type="caption">Gender:</TextBox>
-      <select name="gender" value={formData.gender} onChange={handleChange} className="w-full p-2 border rounded-md mb-3">
-        <option value="">Select...</option>
-        <option value="male">Male</option>
-        <option value="female">Female</option>
-        <option value="non_binary">Non-Binary</option>
-        <option value="prefer_not_to_say">I don't wish to answer</option>
-      </select>
-      </Box>
-      
-      <Box display='flex' gap={1}>
-      <TextBox type="caption">Veteran Status:</TextBox>
-      <select name="veteranStatus" value={formData.veteranStatus} onChange={handleChange} className="w-full p-2 border rounded-md mb-3">
-        <option value="">Select...</option>
-        <option value="not_protected">I am not a protected Veteran</option>
-        <option value="protected_veteran">I identify as one or more classifications of a protected veteran</option>
-        <option value="prefer_not_to_say">I don't wish to answer</option>
-      </select>
-      </Box>
+    <Box display="flex" flexDirection="column" gap={2}>
+      <TextBox type="title">Self-Identification</TextBox>
 
-      <Box display='flex' gap={1}>
-      <TextBox type="caption">Race/Ethnicity:</TextBox>
-      <select name="race" value={formData.race} onChange={handleChange} className="w-full p-2 border rounded-md mb-3">
-        <option value="">Select...</option>
-        <option value="american_indian">American Indian or Alaska Native</option>
-        <option value="asian">Asian</option>
-        <option value="black">Black or African American</option>
-        <option value="hispanic">Hispanic or Latino</option>
-        <option value="native_hawaiian">Native Hawaiian or Other Pacific Islander</option>
-        <option value="white">White</option>
-        <option value="two_or_more">Two or more races</option>
-        <option value="prefer_not_to_say">I don't wish to answer</option>
-      </select>
-      </Box>
-      </Box>
+      <OptionList
+        label="Gender"
+        value={formData.gender}
+        onChange={(newValue) => setFormData({ gender: newValue })}
+        options={[
+          { value: '', label: 'Select...' },
+          { value: 'male', label: 'Male' },
+          { value: 'female', label: 'Female' },
+          { value: 'non_binary', label: 'Non-Binary' },
+          { value: 'prefer_not_to_say', label: 'Prefer not to say' },
+        ]}
+      />
+
+      <OptionList
+        label="Veteran Status"
+        value={formData.veteranStatus}
+        onChange={(newValue) => setFormData({ veteranStatus: newValue })}
+        options={[
+          { value: '', label: 'Select...' },
+          { value: 'not_protected', label: 'I am not a protected veteran' },
+          { value: 'protected', label: 'I identify as one or more classifications of a protected veteran' },
+          { value: 'prefer_not_to_say', label: "I don't wish to answer" },
+        ]}
+      />
+
+      <OptionList
+        label="Race/Ethnicity"
+        value={formData.race}
+        onChange={(newValue) => setFormData({ race: newValue })}
+        options={[
+          { value: '', label: 'Select...' },
+          { value: 'hispanic', label: 'Hispanic or Latino' },
+          { value: 'american_indian', label: 'American Indian or Alaska Native' },
+          { value: 'asian', label: 'Asian' },
+          { value: 'black', label: 'Black or African American' },
+          { value: 'hawaiian', label: 'Native Hawaiian or Other Pacific Islander' },
+          { value: 'white', label: 'White' },
+          { value: 'two_or_more', label: 'Two or more races' },
+          { value: 'prefer_not_to_say', label: 'Prefer not to say' },
+        ]}
+      />
+    </Box>
   );
 };
 
