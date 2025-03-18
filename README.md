@@ -3,6 +3,8 @@
 This is a simple application built with Next.js and TypeScript to submit job applications via Greenhouse's API. The app allows users to submit their resumes and application data for a job listed in Greenhouse. In the future we will want to create a seperate application for 
 recruiters to view applications and make decisions on them - Greenhouse provides API to do this.
 
+The latest deployment, hosted on Vercel, can be accessed at: https://job-app-squared.vercel.app/.
+
 ## Getting Started
 
 ### Prerequisites
