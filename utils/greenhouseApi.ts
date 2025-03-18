@@ -1,37 +1,40 @@
-// Utils file for handling API requests via Next.js backend routes
-// TODO: Split into mulitple files with a more comprehensive utility file structure
-export async function fetchJobDescription(): Promise<string> {
-    try {
-      const response = await fetch('/api/job');
-  
-      if (!response.ok) throw new Error(`Failed to fetch job description: ${response.status}`);
-  
-      const data = await response.json();
-      return data?.content || 'No job description available.';
-    } catch (error) {
-      console.error('Error fetching job description:', error);
-      return 'Error loading job description.';
-    }
+// TODO: Move to seperate greenhouse API package and host as a seperate service
+
+import { ApplicationFormData, IAppError } from "../types";
+
+const API_KEY = process.env.NEXT_PUBLIC_GREENHOUSE_API_KEY;
+const JOB_ID = process.env.NEXT_PUBLIC_GREENHOUSE_JOB_ID;
+const USER_ID = process.env.NEXT_PUBLIC_GREENHOUSE_USER_ID;
+
+export async function getJobDescription(): Promise<any> {
+    const response = await fetch(`https://harvest.greenhouse.io/v1/jobs/${JOB_ID}`, {
+        headers: {
+          'Authorization': `Basic ${btoa(`${API_KEY}:`)}`,
+          'Accept': 'application/json',
+        }
+      });
+      
+      if (!response.ok) {
+        return { errorMessage: `Failed to fetch job description: ${response.statusText}`, errorStatus: response.status } as IAppError;
+      }
+      
+      return await response.json();
   }
   
-  export const submitApplication = async (formData: FormData) => {
-    try {
-      const response = await fetch('/api/job', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData),
-      });
-  
-      if (!response.ok) {
-        throw new Error(`Failed to submit application: ${response.status} ${response.statusText}`);
-      }
-  
-      return await response.json();
-    } catch (error) {
-      console.error('Error submitting application:', error);
-      throw new Error('Error submitting application.');
-    }
+  // TODO: Break this entire application logic into seperate files for each logical step
+  export async function applyToJob(formData: ApplicationFormData): Promise<any> {
+      console.log(formData)
+        const response = await fetch(`https://harvest.greenhouse.io/v1/jobs/${JOB_ID}/applications`, {
+            method: 'POST',
+            headers: {
+              'Authorization': `Basic ${btoa(`${API_KEY}:`)}`,
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData),
+          });
+          
+          if (!response.ok) {
+              return { errorMessage: `Failed to fetch job description: ${response.statusText}`, errorStatus: response.status } as IAppError;
+          }
   };

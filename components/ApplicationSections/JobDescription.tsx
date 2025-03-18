@@ -1,6 +1,6 @@
 import { Box } from '@mui/material'
 import { useEffect, useState } from 'react';
-import { fetchJobDescription } from '../../utils/greenhouseApi';
+import { fetchJobDescription } from '../../api-queries/fetch-job-description';
 import TextBox from '../TextBox/TextBox';
 
 const JobDescription = () => {

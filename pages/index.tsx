@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Box, Container } from '@mui/material';
-import { submitApplication } from '../utils/greenhouseApi';
+import { submitApplication } from '../api-queries/submit-application';
 import BasicInfo from '../components/ApplicationSections/BasicInfo';
 import SelfIdentification from '../components/ApplicationSections/SelfIdentification';
 import DisabilityStatus from '../components/ApplicationSections/DisabilityStatus';
@@ -34,6 +34,13 @@ const Home = () => {
   const handleFileChange = (field: keyof ApplicationFormData, file: File | null) => {
     setFormData((prev) => ({ ...prev, [field]: file }));
   };
+
+  const isSubmitDisabled = !(
+    formData.firstName.trim() &&
+    formData.lastName.trim() &&
+    formData.email.trim() &&
+    formData.phone.trim()
+  );
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -80,7 +87,7 @@ const Home = () => {
         <SelfIdentification formData={formData} setFormData={handleSetFormData} />
         <DisabilityStatus formData={formData} setFormData={handleSetFormData} />
 
-        <Button type="submit" disabled={loading} onClick={handleSubmit}>
+        <Button type="submit" disabled={isSubmitDisabled || loading} onClick={handleSubmit}>
           {loading ? 'Submitting...' : 'Submit Application'}
         </Button>
 

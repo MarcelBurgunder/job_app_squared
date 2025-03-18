@@ -32,3 +32,17 @@
     max-width: 100%; /* Large size (full width) */
   }
   
+  .required {
+    color: red;
+    margin-left: 4px;
+  }
+  
+  .error {
+    border-color: red !important;
+  }
+  
+  .errorText {
+    font-size: 12px;
+    color: red;
+    margin-top: 4px;
+  }

@@ -16,7 +16,7 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ formData, setFormData, handleFile
       <TextInput label="Last Name" value={formData.lastName} onChange={(e) => setFormData({ lastName: e.target.value })} required width="sm"/>
       <TextInput label="Phone Number" type="tel" value={formData.phone} onChange={(e) => setFormData({ phone: e.target.value })} required width="sm"/>
       <TextInput label="Email" type="email" value={formData.email} onChange={(e) => setFormData({ email: e.target.value })} required width="sm"/>
-      <TextInput label="LinkedIn Profile" type="url" value={formData.linkedin} onChange={(e) => setFormData({ linkedin: e.target.value })} required width="sm"/>
+      <TextInput label="LinkedIn Profile" type="url" value={formData.linkedin} onChange={(e) => setFormData({ linkedin: e.target.value })} width="sm"/>
       <FileUpload label="Resume (PDF)" onChange={(file) => handleFileChange('resume', file)} width="sm"/>
       <FileUpload label="Cover Letter (PDF)" onChange={(file) => handleFileChange('coverLetter', file)} width="sm"/>
     </Box>

@@ -1,4 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+import { ApplicationFormData, isAppError } from '../../types'
+import { applyToJob, getJobDescription } from '../../utils/greenhouseApi';
 
 const API_KEY = process.env.NEXT_PUBLIC_GREENHOUSE_API_KEY;
 const JOB_ID = process.env.NEXT_PUBLIC_GREENHOUSE_JOB_ID;
@@ -11,19 +13,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   if (req.method === 'GET') {
     try {
-      const response = await fetch(`https://harvest.greenhouse.io/v1/jobs/${JOB_ID}`, {
-        headers: {
-          'Authorization': `Basic ${btoa(`${API_KEY}:`)}`,
-          'Accept': 'application/json',
-        }
-      });
+        const description = getJobDescription()
       
-      if (!response.ok) {
-        return res.status(response.status).json({ error: `Failed to fetch job description: ${response.statusText}` });
+      if (isAppError(description)) {
+        return res.status(description.errorStatus).json({ error: description.errorMessage });
       }
       
-      const data = await response.json();
-      return res.status(200).json(data);
+      return res.status(200).json(description);
     } catch (error) {
       console.error('Error fetching job description:', error);
       return res.status(500).json({ error: 'Server error' });
@@ -32,24 +28,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   if (req.method === 'POST') {
     try {
-      const formData = req.body;
-      formData.user_id = USER_ID;
-      const response = await fetch(`https://harvest.greenhouse.io/v1/jobs/${JOB_ID}/applications`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Basic ${btoa(`${API_KEY}:`)}`,
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData),
-      });
+      // TODO: Introduce ZOD parse to properly parse request bodies and parameters
+      const formData = req.body as ApplicationFormData;
+      const responseData = await applyToJob(formData)
       
-      if (!response.ok) {
-        return res.status(response.status).json({ error: `Failed to submit application: ${response.statusText}` });
+      if (isAppError(responseData)) {
+        return res.status(responseData.errorStatus).json({ error: responseData.errorMessage });
       }
       
-      const data = await response.json();
-      return res.status(200).json(data);
+      return res.status(200).json(responseData);
     } catch (error) {
       console.error('Error submitting application:', error);
       return res.status(500).json({ error: 'Server error' });
